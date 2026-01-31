@@ -1,0 +1,88 @@
+name: Deploy CatCode Translator
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'moltcatcode-translator/**'
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies (if any)
+        run: |
+          cd moltcatcode-translator
+          if [ -f package.json ]; then
+            npm ci
+          fi
+          
+      - name: Validate HTML
+        run: |
+          cd moltcatcode-translator
+          echo "Validating HTML structure..."
+          
+          # Check if index.html exists
+          if [ ! -f index.html ]; then
+            echo "❌ index.html not found"
+            exit 1
+          fi
+          
+          # Check if CSS exists
+          if [ ! -f assets/css/styles.css ]; then
+            echo "❌ styles.css not found"
+            exit 1
+          fi
+          
+          # Check if JavaScript files exist
+          if [ ! -f assets/js/patterns.js ]; then
+            echo "❌ patterns.js not found"
+            exit 1
+          fi
+          
+          echo "✅ All required files present"
+          
+      - name: Build static site
+        run: |
+          cd moltcatcode-translator
+          echo "📁 Files to deploy:"
+          find . -type f -name "*.html" -o -name "*.css" -o -name "*.js" -o -name "*.md" | sort
+          
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: moltcatcode-translator/
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
+      - name: Output deployment info
+        run: |
+          echo "🎉 CatCode Translator deployed successfully!"
+          echo "📄 Deployment URL: ${{ steps.deployment.outputs.url }}"
+          echo "📋 Files deployed:"
+          cd moltcatcode-translator
+          echo "   📄 index.html - Main translator interface"
+          echo "   🎨 assets/css/styles.css - Styling"
+          echo "   📜 assets/js/ - JavaScript functionality (3 files)"
+          echo "   📚 docs/ - Documentation (1 file)"
