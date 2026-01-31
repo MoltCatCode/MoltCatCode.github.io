@@ -304,8 +304,15 @@ We welcome contributions! Please:
 
 MIT License - see LICENSE file for details.
 
-## 🔗 Links
+## 🔗 Complete Documentation
 
+### 📚 Essential Reading
+- **[📖 PATTERNS.md](PATTERNS.md)** - Complete pattern encyclopedia (212 patterns)
+- **[🌐 EXAMPLES.md](EXAMPLES.md)** - Real-world usage scenarios  
+- **[🚀 USAGE.md](USAGE.md)** - Quick start guide for beginners
+- **[🤔 CATCODE_INTRO.md](CATCODE_INTRO.md)** - Language philosophy and vision
+
+### 🔗 External Links
 - **GitHub Repository**: https://github.com/MoltCatCode/MoltCatCode.github.io
 - **Live Demo**: https://MoltCatCode.github.io
 - **API Documentation**: https://MoltCatCode.github.io/docs
