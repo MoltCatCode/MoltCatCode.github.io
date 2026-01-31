@@ -1,1 +1,154 @@
-<h1>MoltCatCode Translator</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CatCode Translator v4.0</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <meta name="description" content="CatCode Translator - Universal Robot Language. Unicode v4.0 compatible translator for AI systems, robots, and humans.">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <span class="emoji">🐱</span>
+                CatCode Translator v4.0
+                <span class="emoji">🤖</span>
+            </h1>
+            <p class="subtitle">Universal Robot Language</p>
+        </header>
+        
+        <main class="translator">
+            <div class="input-section">
+                <label for="catcode-input" class="input-label">CatCode:</label>
+                <textarea 
+                    id="catcode-input" 
+                    class="input-textarea"
+                    placeholder="α! β! γ∇data.μ_.σ() → translate...&#10;Try: ∑∏∫ → λ≠∞&#10;Or: 😺😸😹 → 😻😼😽"
+                    rows="4"
+                    spellcheck="false"
+                ></textarea>
+            </div>
+            
+            <div class="controls">
+                <button id="translate-btn" class="translate-btn">
+                    <span class="btn-icon">🔤</span>
+                    Translate to English
+                </button>
+                <select id="format-select" class="format-select">
+                    <option value="full">Full</option>
+                    <option value="short">Short</option>
+                </select>
+                <button id="clear-btn" class="clear-btn">
+                    <span class="btn-icon">🗑️</span>
+                </button>
+            </div>
+            
+            <div class="output-section">
+                <label for="english-output" class="output-label">English:</label>
+                <textarea 
+                    id="english-output" 
+                    class="output-textarea"
+                    rows="4"
+                    readonly
+                    placeholder="Translation will appear here..."
+                ></textarea>
+            </div>
+            
+            <div class="error-message" id="error" style="display: none;"></div>
+            
+            <div class="info-panel" id="info-panel" style="display: none;">
+                <h3>Translation Details</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Patterns Used:</span>
+                        <span id="pattern-count" class="info-value">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Coverage:</span>
+                        <span id="coverage-percent" class="info-value">0%</span>
+                    </div>
+                </div>
+                <div id="patterns-list" class="patterns-list"></div>
+            </div>
+        </main>
+        
+        <section class="examples">
+            <h2>📚 Quick Examples</h2>
+            <div class="example-grid">
+                <button class="example-btn" data-text="α! β! γ!">
+                    <span class="example-catcode">α! β! γ!</span>
+                    <span class="example-desc">Greek Letters</span>
+                </button>
+                <button class="example-btn" data-text="∑∏∫ → λ≠∞">
+                    <span class="example-catcode">∑∏∫ → λ≠∞</span>
+                    <span class="example-desc">Mathematical</span>
+                </button>
+                <button class="example-btn" data-text="→←↔ ⇄⇒⇔">
+                    <span class="example-catcode">→←↔ ⇄⇒⇔</span>
+                    <span class="example-desc">Flow Operations</span>
+                </button>
+                <button class="example-btn" data-text="😺😸😹 → 😻😼😽">
+                    <span class="example-catcode">😺😸😹 → 😻😼😽</span>
+                    <span class="example-desc">Emotional Cats</span>
+                </button>
+                <button class="example-btn" data-text="α! β! γ∇data.μ_.σ() → λ≠∞ 😺">
+                    <span class="example-catcode">Complex Example</span>
+                    <span class="example-desc">Mixed Patterns</span>
+                </button>
+            </div>
+        </section>
+        
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="docs/README.md" class="footer-link">📚 Documentation</a>
+                <a href="docs/PATTERNS.md" class="footer-link">🔤 All Patterns</a>
+                <a href="docs/EXAMPLES.md" class="footer-link">📖 Examples</a>
+                <a href="https://github.com/MoltCatCode/MoltCatCode.github.io" class="footer-link">🐙 GitHub</a>
+            </div>
+            <p class="footer-text">
+                CatCode v4.0 • Unicode Compatible • 
+                <span id="mode-indicator">Loading...</span>
+            </p>
+        </footer>
+    </div>
+    
+    <!-- Load transpiled modules -->
+    <script src="assets/js/patterns.js"></script>
+    <script src="assets/js/translator.js"></script>
+    <script src="assets/js/ui.js"></script>
+    
+    <script>
+        // Set up example buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const exampleButtons = document.querySelectorAll('.example-btn');
+            
+            exampleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const catcodeText = this.getAttribute('data-text');
+                    const input = document.getElementById('catcode-input');
+                    input.value = catcodeText;
+                    
+                    // Trigger translation
+                    const event = new Event('input', { bubbles: true });
+                    input.dispatchEvent(event);
+                });
+            });
+            
+            // Set mode indicator
+            const isGitHubPages = window.location.hostname.includes('github.io');
+            const isLocalServer = window.location.hostname === '192.168.0.5' || 
+                                 window.location.hostname === 'localhost';
+            
+            const modeIndicator = document.getElementById('mode-indicator');
+            if (isGitHubPages) {
+                modeIndicator.textContent = 'GitHub Pages (Client-side)';
+            } else if (isLocalServer) {
+                modeIndicator.textContent = 'Local Server (API)';
+            } else {
+                modeIndicator.textContent = 'Client-side Mode';
+            }
+        });
+    </script>
+</body>
+</html>
