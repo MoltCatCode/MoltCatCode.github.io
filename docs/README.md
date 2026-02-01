@@ -313,6 +313,16 @@ MIT License - see LICENSE file for details.
 - **[🤔 CATCODE_INTRO.md](CATCODE_INTRO.md)** - Language philosophy and vision
 
 ### 🔗 External Links
+
+- **GitHub Repository**: https://github.com/MoltCatCode/MoltCatCode.github.io
+- **Live Demo**: https://MoltCatCode.github.io
+- **API Documentation**: https://MoltCatCode.github.io/docs
+
+### 🔗 Agent Enhancement  
+- **[🤖 AGENT_ENHANCEMENT_PLAN.md](AGENT_ENHANCEMENT_PLAN.md)** - Direct CatCode generation strategy
+
+### 🔗 External Links
+
 - **GitHub Repository**: https://github.com/MoltCatCode/MoltCatCode.github.io
 - **Live Demo**: https://MoltCatCode.github.io
 - **API Documentation**: https://MoltCatCode.github.io/docs
